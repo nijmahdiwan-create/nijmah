@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teruntuk sayangku, Abi Husain 🤍</title>
+<title>Teruntuk sayangku, Abi husain 🤍</title>
 <style>
 body{
     margin:0;
@@ -22,8 +22,8 @@ body{
     box-shadow:0 10px 30px rgba(0,0,0,0.1);
     text-align:center;
     max-width:360px;
-    animation:fadeIn 1s ease;
 }
+h2{color:#ff6b9e;}
 button{
     margin-top:25px;
     padding:10px 22px;
@@ -35,10 +35,6 @@ button{
     cursor:pointer;
 }
 button:hover{opacity:.85}
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
-}
 .heart{
     position:absolute;
     color:#ff8fb1;
@@ -54,38 +50,40 @@ button:hover{opacity:.85}
 <body>
 
 <div class="card" id="box">
-    <h2>Sayang ... 🤍</h2>
-    <p>Tolog baca ini pelan dan resapi yaaa…</p>
-    <button onclick="next()">Mulai</button>
+    <h2>Sayang 🤍</h2>
+    <p>Tolong baca ini pelan dan resapi yaaa...</p>
+    <button id="startBtn">Mulai</button>
 </div>
 
 <script>
-let i = 0;
-
-// ✨ GANTI KALIMAT DI SINI (SATU KALIMAT = SATU SLIDE)
-const text = [
+const slides = [
 "Aku minta maaf.",
 "Aku sayang banget sama kamu.",
-"Sayang udah jadi bagian penting dihidup aku.",
-"Tolong kasih aku kesempatan :(.",
+"Sayang udah jadi bagian penting di hidup aku.",
+"Tolong kasih aku kesempatan :(",
 "Aku masih ingin sama sama.",
 "Kasih aku kesempatan ya untuk perbaiki ini.",
 "Semoga selalu ada maaf untuk aku…",
 "Aku tau ga mudah, maafin aku ya sayang.",
 "Terimakasih untuk semua maaf kamu 🤍",
-"Kita ketemu yaaah :("
-"Iloveu sayang"
+"Kita ketemu yaaah :(",
+"I love you sayang.",
+"Pernyataan aku mencintaimu tidak hanya berlaku di hari itu, tapi juga hari ini dan selamanya.",
+"Aku rindu kamu, dan itu akan selalu."
 ];
 
+let i = 0;
+const box = document.getElementById("box");
+
+document.getElementById("startBtn").addEventListener("click", next);
+
 function next(){
-    if(i < text.length){
-        document.getElementById("box").innerHTML =
-        "<p style='font-size:18px'>" + text[i] + "</p>" +
-        "<button onclick='next()'>Next</button>";
+    if(i < slides.length){
+        box.innerHTML = "<p style='font-size:18px'>" + slides[i] + "</p><button id='nextBtn'>Next</button>";
+        document.getElementById("nextBtn").addEventListener("click", next);
         i++;
     } else {
-        document.getElementById("box").innerHTML =
-        "<h2>Pernyataan aku mencintaimu tidak hanya berlaku dihari itu, tapi juga hari ini dan selamanya </h2><p>Aku rindu kamu, dan itu akan selalu.</p>";
+        box.innerHTML = "<h2>Kamu Rahulku 🤍</h2><p>Kamu Majnunku.</p>";
     }
 }
 
