@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu 🤍</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #ffd6e8, #ffeef5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        text-align: center;
+        max-width: 350px;
+        animation: fadeIn 2s ease forwards;
+    }
+
+    h1 {
+        color: #ff6b9e;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    p {
+        color: #555;
+        line-height: 1.6;
+        animation: fadeText 4s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeText {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+
+    .heart {
+        position: absolute;
+        color: #ff8fb1;
+        font-size: 20px;
+        animation: fall 6s linear infinite;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-10vh); opacity: 1; }
+        100% { transform: translateY(110vh); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Baca dulu ya 🤍</h1>
+    <p>
+        Tadi aku kebawa emosi, tapi bukan karena nggak peduli.<br><br>
+        Justru karena kamu penting banget, aku takut kehilangan.<br><br>
+        Kalau kamu sampai baca ini, artinya kamu masih mau dengerin aku…<br>
+        dan itu aja udah bikin aku tenang.
+    </p>
+</div>
+
+<script>
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText = "🤍";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
