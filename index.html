@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teruntuk sayangku, Abi husain 🤍</title>
+<title>Teruntuk sayangku, Abi Husain 🤍</title>
 <style>
 body{
     margin:0;
-    font-family:'Segoe UI',sans-serif;
+    font-family:Segoe UI, sans-serif;
     background:linear-gradient(135deg,#ffd6e8,#ffeef5);
     display:flex;
     justify-content:center;
@@ -23,7 +23,6 @@ body{
     text-align:center;
     max-width:360px;
 }
-h2{color:#ff6b9e;}
 button{
     margin-top:25px;
     padding:10px 22px;
@@ -52,18 +51,18 @@ button:hover{opacity:.85}
 <div class="card" id="box">
     <h2>Sayang 🤍</h2>
     <p>Tolong baca ini pelan dan resapi yaaa...</p>
-    <button id="startBtn">Mulai</button>
+    <button onclick="nextSlide()">Mulai</button>
 </div>
 
 <script>
-const slides = [
+var slides = [
 "Aku minta maaf.",
 "Aku sayang banget sama kamu.",
 "Sayang udah jadi bagian penting di hidup aku.",
 "Tolong kasih aku kesempatan :(",
 "Aku masih ingin sama sama.",
 "Kasih aku kesempatan ya untuk perbaiki ini.",
-"Semoga selalu ada maaf untuk aku…",
+"Semoga selalu ada maaf untuk aku...",
 "Aku tau ga mudah, maafin aku ya sayang.",
 "Terimakasih untuk semua maaf kamu 🤍",
 "Kita ketemu yaaah :(",
@@ -72,15 +71,12 @@ const slides = [
 "Aku rindu kamu, dan itu akan selalu."
 ];
 
-let i = 0;
-const box = document.getElementById("box");
+var i = 0;
 
-document.getElementById("startBtn").addEventListener("click", next);
-
-function next(){
+function nextSlide(){
+    var box = document.getElementById("box");
     if(i < slides.length){
-        box.innerHTML = "<p style='font-size:18px'>" + slides[i] + "</p><button id='nextBtn'>Next</button>";
-        document.getElementById("nextBtn").addEventListener("click", next);
+        box.innerHTML = "<p style='font-size:18px'>" + slides[i] + "</p><button onclick='nextSlide()'>Next</button>";
         i++;
     } else {
         box.innerHTML = "<h2>Kamu Rahulku 🤍</h2><p>Kamu Majnunku.</p>";
@@ -88,13 +84,13 @@ function next(){
 }
 
 function heart(){
-    const h=document.createElement("div");
+    var h=document.createElement("div");
     h.className="heart";
-    h.innerText="🤍";
+    h.innerHTML="🤍";
     h.style.left=Math.random()*100+"vw";
     h.style.animationDuration=(Math.random()*3+3)+"s";
     document.body.appendChild(h);
-    setTimeout(()=>h.remove(),6000);
+    setTimeout(function(){h.remove()},6000);
 }
 setInterval(heart,500);
 </script>
