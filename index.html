@@ -3,93 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Untuk Kamu 🤍</title>
+<title>Teruntuk sayangku, Abi Husain 🤍</title>
 <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #ffd6e8, #ffeef5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    .card {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        text-align: center;
-        max-width: 350px;
-        animation: fadeIn 2s ease forwards;
-    }
-
-    h1 {
-        color: #ff6b9e;
-        animation: float 3s ease-in-out infinite;
-    }
-
-    p {
-        color: #555;
-        line-height: 1.6;
-        animation: fadeText 4s ease forwards;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeText {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
-    }
-
-    .heart {
-        position: absolute;
-        color: #ff8fb1;
-        font-size: 20px;
-        animation: fall 6s linear infinite;
-    }
-
-    @keyframes fall {
-        0% { transform: translateY(-10vh); opacity: 1; }
-        100% { transform: translateY(110vh); opacity: 0; }
-    }
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#ffd6e8,#ffeef5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    text-align:center;
+    max-width:360px;
+    animation:fadeIn 1s ease;
+}
+button{
+    margin-top:25px;
+    padding:10px 22px;
+    border:none;
+    border-radius:20px;
+    background:#ff6b9e;
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+}
+button:hover{opacity:.85}
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+.heart{
+    position:absolute;
+    color:#ff8fb1;
+    font-size:20px;
+    animation:fall 6s linear infinite;
+}
+@keyframes fall{
+    0%{transform:translateY(-10vh);opacity:1;}
+    100%{transform:translateY(110vh);opacity:0;}
+}
 </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>Teruntuk sayangku, Abi Husain 🤍</h1>
-    <p>
-        Aku minta maaf, aku sayang banget sama kamu. kita ketemu yaah.<br><br>
-        Sayang udah jadi bagian penting dihdup aku.<br><br>
-        Tolong kasih aku kesempatan, aku masih ingin sama sama…<br>
-        semoga maaf kamu masih ada untuk aku, iloveu sayang.
-    </p>
+<div class="card" id="box">
+    <h2>Sayang ... 🤍</h2>
+    <p>Tolog baca ini pelan dan resapi yaaa…</p>
+    <button onclick="next()">Mulai</button>
 </div>
 
 <script>
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerText = "🤍";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
+let i = 0;
+
+// ✨ GANTI KALIMAT DI SINI (SATU KALIMAT = SATU SLIDE)
+const text = [
+"Aku minta maaf.",
+"Aku sayang banget sama kamu.",
+"Sayang udah jadi bagian penting dihidup aku.",
+"Tolong kasih aku kesempatan :(.",
+"Aku masih ingin sama sama.",
+"Kasih aku kesempatan ya untuk perbaiki ini.",
+"Semoga selalu ada maaf untuk aku…",
+"Aku tau ga mudah, maafin aku ya sayang.",
+"Terimakasih untuk semua maaf kamu 🤍",
+"Kita ketemu yaaah :("
+"Iloveu sayang"
+];
+
+function next(){
+    if(i < text.length){
+        document.getElementById("box").innerHTML =
+        "<p style='font-size:18px'>" + text[i] + "</p>" +
+        "<button onclick='next()'>Next</button>";
+        i++;
+    } else {
+        document.getElementById("box").innerHTML =
+        "<h2>Pernyataan aku mencintaimu tidak hanya berlaku dihari itu, tapi juga hari ini dan selamanya </h2><p>Aku rindu kamu, dan itu akan selalu.</p>";
     }
-    setInterval(createHeart, 500);
+}
+
+function heart(){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerText="🤍";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+}
+setInterval(heart,500);
 </script>
 
 </body>
 </html>
-
