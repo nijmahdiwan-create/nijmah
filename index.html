@@ -14,46 +14,22 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  overflow: hidden;
 }
-
 .container { text-align: center; max-width: 90%; }
-
-.slide {
-  display: none;
-  font-size: 26px;
-  color: #444;
-  animation: fade 1s ease;
-  min-height: 120px;
-}
-
+.slide { display: none; font-size: 26px; color: #444; animation: fade 1s ease; min-height: 120px; }
 .active { display: block; }
-
 button.next {
-  margin-top: 30px;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  background: #ff6fa5;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+  margin-top: 30px; padding: 12px 25px;
+  border: none; border-radius: 25px;
+  background: #ff6fa5; color: white;
+  font-size: 16px; cursor: pointer;
 }
-
 #musicBtn {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  padding: 8px 15px;
-  border-radius: 20px;
-  border: none;
-  background: #ff6fa5;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-  z-index: 999;
+  position: fixed; top: 15px; right: 15px;
+  padding: 8px 15px; border-radius: 20px;
+  border: none; background: #ff6fa5;
+  color: white; cursor: pointer; font-size: 14px;
 }
-
 @keyframes fade {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -63,59 +39,30 @@ button.next {
 
 <body>
 
-<button id="musicBtn" disabled>⏳ Menyiapkan Musik...</button>
+<audio id="bgMusic" loop>
+  <source src="https://raw.githubusercontent.com/nijmahdiwan-create/nijmah/main/ssstik.io_1770475585743.mp3" type="audio/mpeg">
+</audio>
 
-<div id="player"></div>
+<button id="musicBtn">🎵 Putar Musik</button>
 
 <div class="container">
   <div class="slide active">Hai Jantungku 🤍</div>
   <div class="slide">Aku belajar coding, dan bikin ini khusus untuk kamu, Jantungku...</div>
   <div class="slide">Berharap Jantungku senang dengan semua ini, dan dihapus segala lara yang aku sebabkan 🌷</div>
-  <div class="slide">Aku pilih lagu ini, biar kita jadi doa yang nyata ☁️</div>
+  <div class="slide">Aku pilih Lagu ini, biar kita jadi doa yang nyata ☁️</div>
   <div class="slide">Dan semoga hatimu tetap hangat ✨</div>
-
   <button class="next" onclick="nextSlide()">Next ➜</button>
 </div>
 
-<script src="https://www.youtube.com/iframe_api"></script>
-
 <script>
-let player;
-let ready = false;
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
 
-// YouTube siap
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: '0',
-    width: '0',
-    videoId: '9q6aR3V8wXQ',
-    playerVars: {
-      playsinline: 1,
-      loop: 1,
-      playlist: '9q6aR3V8wXQ'
-    },
-    events: {
-      'onReady': onPlayerReady
-    }
-  });
-}
-
-function onPlayerReady() {
-  ready = true;
-  const btn = document.getElementById("musicBtn");
-  btn.disabled = false;
-  btn.textContent = "🎵 Putar Musik";
-}
-
-document.getElementById("musicBtn").addEventListener("click", function () {
-  if (!ready) return;
-  player.unMute();
-  player.setVolume(100);
-  player.playVideo();
-  this.style.display = "none";
+btn.addEventListener("click", () => {
+  music.play();
+  btn.style.display = "none";
 });
 
-// Slide
 let current = 0;
 const slides = document.querySelectorAll(".slide");
 
