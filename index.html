@@ -1,125 +1,130 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Untuk Jantungku</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Untuk Jantungku</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ffd6e7, #ffeef5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ffd6e7, #ffeef5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
 
-    .container {
-      text-align: center;
-      max-width: 90%;
-    }
+.container { text-align: center; max-width: 90%; }
 
-    .slide {
-      display: none;
-      font-size: 26px;
-      color: #444;
-      animation: fade 1s ease;
-      min-height: 120px;
-    }
+.slide {
+  display: none;
+  font-size: 26px;
+  color: #444;
+  animation: fade 1s ease;
+  min-height: 120px;
+}
 
-    .active {
-      display: block;
-    }
+.active { display: block; }
 
-    button.next {
-      margin-top: 30px;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 25px;
-      background: #ff6fa5;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+button.next {
+  margin-top: 30px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: #ff6fa5;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    #musicBtn {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      padding: 8px 15px;
-      border-radius: 20px;
-      border: none;
-      background: #ff6fa5;
-      color: white;
-      cursor: pointer;
-      z-index: 999;
-      font-size: 14px;
-    }
+#musicBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: none;
+  background: #ff6fa5;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 999;
+}
 
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+@keyframes fade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
 
 <body>
 
-  <button id="musicBtn">🎵 Putar Musik</button>
+<button id="musicBtn" disabled>⏳ Menyiapkan Musik...</button>
 
-  <div id="player"></div>
+<div id="player"></div>
 
-  <div class="container">
-    <div class="slide active">Hai Jantungku 🤍</div>
-    <div class="slide">Aku belajar coding, dan bikin ini khusus untuk kamu, Jantungku...</div>
-    <div class="slide">Berharap Jantungku senang dengan semua ini, dan dihapus segala lara yang aku sebabkan 🌷</div>
-    <div class="slide">Aku pilih lagu ini, biar kita jadi doa yang nyata ☁️</div>
-    <div class="slide">Dan semoga hatimu tetap hangat ✨</div>
+<div class="container">
+  <div class="slide active">Hai Jantungku 🤍</div>
+  <div class="slide">Aku belajar coding, dan bikin ini khusus untuk kamu, Jantungku...</div>
+  <div class="slide">Berharap Jantungku senang dengan semua ini, dan dihapus segala lara yang aku sebabkan 🌷</div>
+  <div class="slide">Aku pilih lagu ini, biar kita jadi doa yang nyata ☁️</div>
+  <div class="slide">Dan semoga hatimu tetap hangat ✨</div>
 
-    <button class="next" onclick="nextSlide()">Next ➜</button>
-  </div>
+  <button class="next" onclick="nextSlide()">Next ➜</button>
+</div>
 
-  <script src="https://www.youtube.com/iframe_api"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 
-  <script>
-    // ======================================================
-    // YOUTUBE API
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: '9q6aR3V8wXQ',
-        playerVars: {
-          autoplay: 0,
-          loop: 1,
-          playlist: '9q6aR3V8wXQ'
-        }
-      });
+<script>
+let player;
+let ready = false;
+
+// YouTube siap
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '0',
+    width: '0',
+    videoId: '9q6aR3V8wXQ',
+    playerVars: {
+      playsinline: 1,
+      loop: 1,
+      playlist: '9q6aR3V8wXQ'
+    },
+    events: {
+      'onReady': onPlayerReady
     }
+  });
+}
 
-    document.getElementById("musicBtn")
-      .addEventListener("click", function () {
-        player.playVideo();      // ini beneran dianggap klik user
-        this.style.display = "none";
-      });
+function onPlayerReady() {
+  ready = true;
+  const btn = document.getElementById("musicBtn");
+  btn.disabled = false;
+  btn.textContent = "🎵 Putar Musik";
+}
 
-    // ======================================================
-    // SLIDE BIASA
-    let current = 0;
-    const slides = document.querySelectorAll(".slide");
+document.getElementById("musicBtn").addEventListener("click", function () {
+  if (!ready) return;
+  player.unMute();
+  player.setVolume(100);
+  player.playVideo();
+  this.style.display = "none";
+});
 
-    function nextSlide() {
-      slides[current].classList.remove("active");
-      current++;
-      if (current >= slides.length) current = 0;
-      slides[current].classList.add("active");
-    }
-  </script>
+// Slide
+let current = 0;
+const slides = document.querySelectorAll(".slide");
+
+function nextSlide() {
+  slides[current].classList.remove("active");
+  current = (current + 1) % slides.length;
+  slides[current].classList.add("active");
+}
+</script>
 
 </body>
 </html>
