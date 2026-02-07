@@ -1,99 +1,104 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teruntuk sayangku, Abi Husain 🤍</title>
-<style>
-body{
-    margin:0;
-    font-family:Segoe UI, sans-serif;
-    background:linear-gradient(135deg,#ffd6e8,#ffeef5);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    overflow:hidden;
-}
-.card{
-    background:white;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
-    text-align:center;
-    max-width:360px;
-}
-button{
-    margin-top:25px;
-    padding:10px 22px;
-    border:none;
-    border-radius:20px;
-    background:#ff6b9e;
-    color:white;
-    font-size:14px;
-    cursor:pointer;
-}
-button:hover{opacity:.85}
-.heart{
-    position:absolute;
-    color:#ff8fb1;
-    font-size:20px;
-    animation:fall 6s linear infinite;
-}
-@keyframes fall{
-    0%{transform:translateY(-10vh);opacity:1;}
-    100%{transform:translateY(110vh);opacity:0;}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Untuk jantungku</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffd6e7, #ffeef5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 90%;
+    }
+
+    .slide {
+      display: none;
+      font-size: 26px;
+      color: #444;
+      animation: fade 1s ease;
+      min-height: 120px;
+    }
+
+    .active {
+      display: block;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background: #ff6fa5;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* sembunyikan video */
+    #player {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 0;
+    }
+  </style>
 </head>
 <body>
 
-<div class="card" id="box">
-    <h2>Sayang 🤍</h2>
-    <p>Tolong baca ini pelan dan resapi yaaa...</p>
-    <button onclick="nextSlide()">Mulai</button>
-</div>
+  <!-- 🎵 YouTube Music Autoplay -->
+  <iframe id="player"
+    src="https://www.youtube.com/embed/9q6aR3V8wXQ?autoplay=1&loop=1&playlist=9q6aR3V8wXQ&mute=1&enablejsapi=1"
+    allow="autoplay">
+  </iframe>
 
-<script>
-var slides = [
-"Aku minta maaf.",
-"Aku sayang banget sama kamu.",
-"Sayang udah jadi bagian penting di hidup aku.",
-"Tolong kasih aku kesempatan :(",
-"Aku masih ingin sama sama.",
-"Kasih aku kesempatan ya untuk perbaiki ini.",
-"Semoga selalu ada maaf untuk aku...",
-"Aku tau ga mudah, maafin aku ya sayang.",
-"Terimakasih untuk semua maaf kamu 🤍",
-"Kita ketemu yaaah :(",
-"I love you sayang.",
-"Pernyataan aku mencintaimu tidak hanya berlaku di hari itu, tapi juga hari ini dan selamanya.",
-"Aku rindu kamu, dan itu akan selalu."
-];
+  <div class="container">
+    <div class="slide active">Hai jantungku 🤍</div>
+    <div class="slide">Aku belajar ngoding buat bikin ini untuk kamu...</div>
+    <div class="slide">Berharap jantungku senang dengan semua ini 🌷</div>
+    <div class="slide">Aku pilih lagu ini, biar kita jadi doa yang nyata ☁️</div>
+    <div class="slide">Dan semoga hatimu tetap hangat ✨</div>
 
-var i = 0;
+    <button onclick="nextSlide()">Next ➜</button>
+  </div>
 
-function nextSlide(){
-    var box = document.getElementById("box");
-    if(i < slides.length){
-        box.innerHTML = "<p style='font-size:18px'>" + slides[i] + "</p><button onclick='nextSlide()'>Next</button>";
-        i++;
-    } else {
-        box.innerHTML = "<h2>Kamu Rahulku 🤍</h2><p>Kamu Majnunku.</p>";
+  <script>
+    let current = 0;
+    const slides = document.querySelectorAll(".slide");
+
+    function nextSlide() {
+      slides[current].classList.remove("active");
+      current++;
+      if (current >= slides.length) current = 0;
+      slides[current].classList.add("active");
     }
-}
 
-function heart(){
-    var h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="🤍";
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(Math.random()*3+3)+"s";
-    document.body.appendChild(h);
-    setTimeout(function(){h.remove()},6000);
-}
-setInterval(heart,500);
-</script>
+    // naikkan volume setelah halaman aktif
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("player").contentWindow.postMessage(
+          '{"event":"command","func":"unMute","args":""}',
+          "*"
+        );
+      }, 2000);
+    });
+  </script>
 
 </body>
 </html>
