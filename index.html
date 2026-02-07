@@ -64,23 +64,14 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    iframe {
-      display: none;
-    }
   </style>
 </head>
 
 <body>
 
-  <!-- 🎵 Tombol Musik -->
-  <button id="musicBtn" onclick="playMusic()">🎵 Putar Musik</button>
+  <button id="musicBtn">🎵 Putar Musik</button>
 
-  <!-- 🎵 Lagu -->
-  <iframe id="musicFrame"
-    src="https://www.youtube.com/embed/9q6aR3V8wXQ?loop=1&playlist=9q6aR3V8wXQ"
-    allow="autoplay">
-  </iframe>
+  <div id="player"></div>
 
   <div class="container">
     <div class="slide active">Hai Jantungku 🤍</div>
@@ -92,7 +83,33 @@
     <button class="next" onclick="nextSlide()">Next ➜</button>
   </div>
 
+  <script src="https://www.youtube.com/iframe_api"></script>
+
   <script>
+    // ======================================================
+    // YOUTUBE API
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: '9q6aR3V8wXQ',
+        playerVars: {
+          autoplay: 0,
+          loop: 1,
+          playlist: '9q6aR3V8wXQ'
+        }
+      });
+    }
+
+    document.getElementById("musicBtn")
+      .addEventListener("click", function () {
+        player.playVideo();      // ini beneran dianggap klik user
+        this.style.display = "none";
+      });
+
+    // ======================================================
+    // SLIDE BIASA
     let current = 0;
     const slides = document.querySelectorAll(".slide");
 
@@ -101,12 +118,6 @@
       current++;
       if (current >= slides.length) current = 0;
       slides[current].classList.add("active");
-    }
-
-    function playMusic() {
-      const frame = document.getElementById("musicFrame");
-      frame.src += "&autoplay=1";
-      document.getElementById("musicBtn").style.display = "none";
     }
   </script>
 
