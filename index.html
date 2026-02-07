@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Untuk jantungku</title>
+  <title>Untuk Jantungku</title>
 
   <style>
     body {
@@ -34,7 +34,7 @@
       display: block;
     }
 
-    button {
+    button.next {
       margin-top: 30px;
       padding: 12px 25px;
       border: none;
@@ -46,36 +46,50 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
+    #musicBtn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      background: #ff6fa5;
+      color: white;
+      cursor: pointer;
+      z-index: 999;
+      font-size: 14px;
+    }
+
     @keyframes fade {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* sembunyikan video */
-    #player {
-      position: absolute;
-      width: 0;
-      height: 0;
-      border: 0;
+    iframe {
+      display: none;
     }
   </style>
 </head>
+
 <body>
 
-  <!-- 🎵 YouTube Music Autoplay -->
-  <iframe id="player"
-    src="https://www.youtube.com/embed/9q6aR3V8wXQ?autoplay=1&loop=1&playlist=9q6aR3V8wXQ&mute=1&enablejsapi=1"
+  <!-- 🎵 Tombol Musik -->
+  <button id="musicBtn" onclick="playMusic()">🎵 Putar Musik</button>
+
+  <!-- 🎵 Lagu -->
+  <iframe id="musicFrame"
+    src="https://www.youtube.com/embed/9q6aR3V8wXQ?loop=1&playlist=9q6aR3V8wXQ"
     allow="autoplay">
   </iframe>
 
   <div class="container">
-    <div class="slide active">Hai jantungku 🤍</div>
-    <div class="slide">Aku belajar ngoding buat bikin ini untuk kamu...</div>
-    <div class="slide">Berharap jantungku senang dengan semua ini 🌷</div>
+    <div class="slide active">Hai Jantungku 🤍</div>
+    <div class="slide">Aku belajar coding, dan bikin ini khusus untuk kamu, Jantungku...</div>
+    <div class="slide">Berharap Jantungku senang dengan semua ini, dan dihapus segala lara yang aku sebabkan 🌷</div>
     <div class="slide">Aku pilih lagu ini, biar kita jadi doa yang nyata ☁️</div>
     <div class="slide">Dan semoga hatimu tetap hangat ✨</div>
 
-    <button onclick="nextSlide()">Next ➜</button>
+    <button class="next" onclick="nextSlide()">Next ➜</button>
   </div>
 
   <script>
@@ -89,15 +103,11 @@
       slides[current].classList.add("active");
     }
 
-    // naikkan volume setelah halaman aktif
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("player").contentWindow.postMessage(
-          '{"event":"command","func":"unMute","args":""}',
-          "*"
-        );
-      }, 2000);
-    });
+    function playMusic() {
+      const frame = document.getElementById("musicFrame");
+      frame.src += "&autoplay=1";
+      document.getElementById("musicBtn").style.display = "none";
+    }
   </script>
 
 </body>
